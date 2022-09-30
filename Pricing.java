@@ -1,40 +1,38 @@
 import java.util.Scanner;
 
 public class Pricing {
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
+        /*
+         * Getting Inputs
+         */
         Scanner sc = new Scanner(System.in);
-        long currency = sc.nextLong();
+        long cost = sc.nextLong();
         sc.close();
-        System.out.println(maxGems(currency));
 
-        
+        binarySearch(cost);
     }
 
-    public static long maxGems(long currency) {
-        long lo = 0;
-        long hi = 10000;
+    public static void binarySearch(long cost) {
+        long low = 0;
+        long high = 1000000;
 
-        while (lo < hi) {
-            long mid = (lo + hi + 1) / 2; 
-            if (gemCost(mid) > currency) {
-                hi = mid - 1;
-            }
-            else {
-                lo = mid;
-            }
+        while (low < high) {
+            long mid = (low + high + 1) / 2;
+            if (getCost(mid) > cost) 
+                high = mid-1;
+            else 
+                low = mid;
         }
-        return lo;
+        
+        System.out.println(low);
     }
 
-
-    /*
-     * Calculates the cost of buying N amount of gems, returns cost as an int.
-     */
-    public static long gemCost(long number_of_gems) {
+    //works
+    public static long getCost(long quantity) {
         long cost = 0;
-
-        for (int i = 1; i < number_of_gems; ++i) {
-            cost += i * (number_of_gems / i);
+        for (long i = 1; i < quantity; ++i)  {
+            cost += (i * (quantity/i));
         }
         return cost;
     }
